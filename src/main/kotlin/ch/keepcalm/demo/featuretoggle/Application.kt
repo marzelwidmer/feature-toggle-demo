@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Primary
@@ -14,6 +15,10 @@ import org.springframework.hateoas.config.EnableHypermediaSupport
 import org.springframework.hateoas.server.mvc.add
 import org.springframework.stereotype.Service
 import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression
+import org.springframework.boot.context.properties.ConfigurationProperties
+import org.springframework.boot.context.properties.EnableConfigurationProperties
+import org.springframework.stereotype.Component
 
 
 fun main(args: Array<String>) {
@@ -36,6 +41,10 @@ class Application() {
         return HolidayGreetingHandler()
     }
 }
+
+@Component
+@ConditionalOnExpression("\${feature.toggle:false}")
+data class Feature1(val name: String = "feature1")
 
 
 
@@ -81,9 +90,14 @@ class HolidayGreetingHandler : GreetingHandler {
 //  |  _  |/ ___ \| | | |___ |_| / ___ \ ___) |
 //  |_| |_/_/   \_\_| |_____\___/_/   \_\____/
 //
+open class Index : RepresentationModel<Index>()
+
 @RestController
 @RequestMapping("/api", produces = [MediaTypes.HAL_JSON_UTF8_VALUE])
 class IndexController {
+
+    @Value("\${app.feature}")
+    lateinit var feature: String
 
     @GetMapping
     fun api(): Index = Index()
@@ -95,10 +109,13 @@ class IndexController {
                 add(CustomerController::class) {
                     linkTo { getCustomer() } withRel "customer"
                 }
-
+                when (feature){
+                    "feature1" -> add(Link("http://api.icndb.com/jokes/random" , "chuck-norris"))
+                    "feature2" -> add(Link("http:/google.com" , "google"))
+                    "feature3" -> add(Link("https://api.opendota.com/api/heroStats" , "heros"))
+                }
             }
 }
-
 
 @Service
 class CustomerService {
@@ -122,7 +139,3 @@ class CustomerController(private val customerService: CustomerService) {
 
 
 }
-
-
-
-open class Index : RepresentationModel<Index>()
