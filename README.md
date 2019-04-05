@@ -39,7 +39,7 @@ Transfer-Encoding: chunked
 }
 ```
 
-## Test Feature Toggle
+## Test Feature Toggle (google) feature2
 ```bash
 $ http :8081/api
 ```
@@ -63,8 +63,8 @@ Transfer-Encoding: chunked
 }
 ```
 
-# Change Configuration
-
+## Test Feature Toggle (chuck-norris) feature1
+### Change Configuration
 Now we change the configuration file _confg-repo/feature-toggle-demo.yml_
 
 ```bash
@@ -108,6 +108,7 @@ http :8081/api
 ```
 
 _Feature1_ is enabled when you se something like
+
 ```bash
 HTTP/1.1 200
 Content-Type: application/hal+json;charset=UTF-8
@@ -126,6 +127,7 @@ Transfer-Encoding: chunked
 }
 ``` 
 
+## Test Feature Toggle (heros) feature3
 
 ok lets try the next feature _feature3_ for this we change in the _config-repo_ 
 the following configuration an after this we notify again our application to load the new configuration from _config-server_
