@@ -7,3 +7,7 @@ logging:
 
 server:
   port: 8081
+
+app:
+  feature: feature1
+
