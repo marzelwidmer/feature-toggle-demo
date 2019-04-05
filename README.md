@@ -43,7 +43,7 @@ Transfer-Encoding: chunked
 ```bash
 $ http :8081/api
 ```
-Check if there the _chuck-norris_ link.
+Check if there the a relation _google_.
 
 ```bash
 HTTP/1.1 200
@@ -86,6 +86,7 @@ For this we have to _POST_ the following request
 http POST :8081/actuator/refresh
 ```
 
+
 ```bash
 
 HTTP/1.1 200
@@ -98,7 +99,10 @@ Transfer-Encoding: chunked
 ]
 ```
 
-Lets try again what we get now from _API_
+
+Check if there the a relation _chuck-norris_.
+
+
 ```bash
 http :8081/api
 ```
@@ -128,10 +132,9 @@ the following configuration an after this we notify again our application to loa
 ```bash
 app:
   feature: feature3
-
 ```
 
-Then we should get the following _links_
+Check if there the a relation _heros_.
 
 ```bash
 http :8081/api
