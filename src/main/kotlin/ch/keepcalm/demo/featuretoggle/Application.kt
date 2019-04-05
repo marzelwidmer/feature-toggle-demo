@@ -40,7 +40,7 @@ open class Index : RepresentationModel<Index>()
 @RefreshScope
 class IndexController {
 
-    @Value("\${app.feature}")
+    @Value("\${app.feature:feature99}")
     lateinit var feature: String
 
     @GetMapping

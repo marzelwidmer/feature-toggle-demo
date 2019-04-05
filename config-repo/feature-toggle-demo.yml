@@ -1,3 +1,5 @@
+spring.application.name: feature-toggle-demo
+
 # Logging
 logging:
   pattern:
@@ -9,5 +11,13 @@ server:
   port: 8081
 
 app:
-  feature: feature1
+  feature: feature2
 
+
+# Management
+management:
+  endpoints:
+    web.exposure.include: "*"
+  endpoint:
+    health:
+      show-details: ALWAYS

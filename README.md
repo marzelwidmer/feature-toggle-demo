@@ -53,17 +53,104 @@ Transfer-Encoding: chunked
 
 {
     "_links": {
-        "chuck-norris": {
-            "href": "http://api.icndb.com/jokes/random"
-        },
-        "customer": {
-            "href": "http://localhost:8081/api/customer"
-        },
-        "greeting": {
-            "href": "http://localhost:8081/api/greeting"
+        "google": {
+            "href": "http:/google.com"
         },
         "self": {
             "href": "http://localhost:8081/api"
         }
     }
+}
+```
+
+# Change Configuration
+
+Now we change the configuration file _confg-repo/feature-toggle-demo.yml_
+
+```bash
+.
+├── config-repo
+│   └── feature-toggle-demo.yml
+├── src
+```
+
+We enable now _feature1_
+```bash
+app:
+  feature: feature1
+
+```
+
+For this we have to _POST_ the following request 
+```bash
+http POST :8081/actuator/refresh
+```
+
+```bash
+
+HTTP/1.1 200
+Content-Type: application/vnd.spring-boot.actuator.v2+json;charset=UTF-8
+Date: Fri, 05 Apr 2019 22:55:03 GMT
+Transfer-Encoding: chunked
+
+[
+    "app.feature"
+]
+```
+
+Lets try again what we get now from _API_
+```bash
+http :8081/api
+```
+
+_Feature1_ is enabled when you se something like
+```bash
+HTTP/1.1 200
+Content-Type: application/hal+json;charset=UTF-8
+Date: Fri, 05 Apr 2019 22:55:38 GMT
+Transfer-Encoding: chunked
+
+{
+    "_links": {
+        "chuck-norris": {
+            "href": "http://api.icndb.com/jokes/random"
+        },
+        "self": {
+            "href": "http://localhost:8081/api"
+        }
+    }
+}
+``` 
+
+
+ok lets try the next feature _feature3_ for this we change in the _config-repo_ 
+the following configuration an after this we notify again our application to load the new configuration from _config-server_
+```bash
+app:
+  feature: feature3
+
+```
+
+Then we should get the following _links_
+
+```bash
+http :8081/api
+```
+
+```bash
+HTTP/1.1 200
+Content-Type: application/hal+json;charset=UTF-8
+Date: Fri, 05 Apr 2019 22:58:42 GMT
+Transfer-Encoding: chunked
+
+{
+    "_links": {
+        "heros": {
+            "href": "https://api.opendota.com/api/heroStats"
+        },
+        "self": {
+            "href": "http://localhost:8081/api"
+        }
+    }
+}
 ```
