@@ -7,5 +7,5 @@ spring:
         git:
           uri: https://github.com/marzelwidmer/feature-toggle-demo.git
           strict-host-key-checking: false
-            search-paths: config-repo
+          search-paths: config-repo
 
