@@ -5,6 +5,5 @@ spring:
     config:
       server:
         git:
-          uri: https://github.com/marzelwidmer/feature-toggle-demo.git
-          strict-host-key-checking: false
+          uri: file://${user.dir}
           search-paths: config-repo
