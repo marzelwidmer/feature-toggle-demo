@@ -1,6 +1,8 @@
 # feature-toggle-demo
 feature toggle demo app
 
+![feature-toggle](../master/feature-toggle.png)
+
 
 ## Start Config Server
 ```bash
