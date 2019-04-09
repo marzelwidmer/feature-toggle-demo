@@ -11,7 +11,7 @@ $ spring cloud configserver
 
 ### Test Config Server
 ```bash
-$ http :8888/feature-toggle-demo/deafult
+$ http :8888/feature-toggle-demo/default
 ```
 
 ```bash
